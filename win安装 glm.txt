@@ -1,0 +1,37 @@
+----------------conda环境隔离搭建---------------
+通过conda 新建一个虚拟环境
+
+conda create -n nerf python=3.9
+激活虚拟环境
+
+conda activate nerf
+接下来就可以执行pytorch安装命令了。
+
+conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch
+
+import torch
+print (torch.cuda.is_available())
+
+
+① 报错nomodule readline
+pip install pyreadline
+② 报错 python, sqlmap报错 AttributeError: module ‘collections‘ has no attribute ‘Callable‘
+参考文章 
+https://blog.csdn.net/K_essi/article/details/126047493
+解决方法
+进入conda 安装环境 py3k_compat.py这个文件xxx\site-packages\pyreadline\py3k_compat.py
+
+在第8行把 return isinstance(x, collections.Callable)改为 return isinstance(x, collections.abc.Callable)即可正常使用
+
+报错③  AssertionError: Torch not compiled with CUDA enabled 
+
+https://blog.csdn.net/weixin_72056722/article/details/126651703
+
+下载这个版本  https://download.pytorch.org/whl/cu113/torch-1.11.0%2Bcu113-cp39-cp39-win_amd64.whl
+
+测试
+import torch
+ 
+print(torch.__version__)：查看torch版本
+ 
+print(torch.cuda.is_available())：看安装好的torch和cuda能不能用，也就是看GPU能不能用
